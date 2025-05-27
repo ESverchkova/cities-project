@@ -25,3 +25,19 @@ def play_cities():
         if last_letter is not None and user_city[0] != last_letter:
             print(f"Город должен начинаться на букву '{last_letter}'. Вы проиграли!")
             break
+            
+        used_cities.add(user_city)
+        available_cities.remove(user_city)
+
+        last_char = user_city[-1]
+        for char in reversed(user_city):
+            if char not in ('ъ', 'ы', 'ь'):
+                last_char = char
+                break
+        last_letter = last_char
+
+        matching_cities = [city for city in available_cities if city[0] == last_letter]
+        if not matching_cities:
+            print("Я не знаю подходящего города. Вы победили!")
+            break
+        computer_city = random.choice(matching_cities)
