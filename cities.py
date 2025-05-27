@@ -1,3 +1,5 @@
+import random
+
 cities = open("russian_cities.txt", "r", encoding="utf-8").read().split(", ")
 cities = [city.strip() for city in cities if city.strip()]
 
@@ -6,6 +8,10 @@ def play_cities():
     used_cities = set()
     available_cities = [city.lower() for city in cities]
     last_letter = None
+    
+    print("Давайте играть в города! Вы начинаете.")
+    print("Правила: называйте город на последнюю букву предыдущего города (кроме ъ, ы, ь).")
+    print("Чтобы выйти, введите 'стоп'.")
     
     while True:
         user_city = input("Ваш город: ").strip().lower()
@@ -41,3 +47,17 @@ def play_cities():
             print("Я не знаю подходящего города. Вы победили!")
             break
         computer_city = random.choice(matching_cities)
+        
+        print(f"Мой город: {computer_city.title()}")
+        used_cities.add(computer_city)
+        available_cities.remove(computer_city)
+
+        last_char = computer_city[-1]
+        for char in reversed(computer_city):
+            if char not in ('ъ', 'ы', 'ь'):
+                last_char = char
+                break
+        last_letter = last_char
+
+
+play_cities()
