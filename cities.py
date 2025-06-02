@@ -1,6 +1,7 @@
 import random
 
-cities = open("russian_cities.txt", "r", encoding="utf-8").read().split(", ")
+cities_file = open("russian_cities.txt", "r", encoding="utf-8")
+cities = cities_file.read().split(", ")
 cities = [city.strip() for city in cities if city.strip()]
 
 
@@ -59,5 +60,6 @@ def play_cities():
                 break
         last_letter = last_char
 
+cities_file.close()
 
 play_cities()
